@@ -59,6 +59,16 @@ export class StudentService {
     patchStudent(id: number, data: Partial<{name?: string; age?:number; email?:string}>){
         const student = this.getStudentById(id);
         Object.assign(student, data);
+        return student;
+    }
+
+    //DELETE
+    deleteStudent(id: number){
+        const studentIndex = this.students.findIndex(std => std.id === id);
+
+        if(studentIndex < 0) throw new NotFoundException('Student not Found!');
+
+        this.students.splice(studentIndex, 1);
     }
 
 }
