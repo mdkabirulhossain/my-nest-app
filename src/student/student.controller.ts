@@ -14,13 +14,13 @@ export class StudentController {
         return {
             statusCode: HttpStatus.OK,
             message: 'Students fetched successfully',
-            meta: {
+            data: result,
+             meta: {
                 page,
                 limit,
                 total: result.length,
                 totalPage: Math.ceil(result.length / limit),
             },
-            data: result,
         };
     }
 
