@@ -18,8 +18,13 @@ export class StudentService {
         }
     ];
 
-    getAllStudents(){
-        return this.students;
+    getAllStudents(page: number = 1, limit: number = 10) {
+        const skip = (page - 1) * limit;
+        const data = this.students.slice(skip, skip + limit);
+        return {
+            data,
+            total: this.students.length,
+        };
     }
 
     getStudentById(id: number){

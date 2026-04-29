@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { StudentService } from './student.service';
 
 @Controller('student')
@@ -7,19 +7,31 @@ export class StudentController {
     constructor(private readonly studentService: StudentService){}
 
     @Get()
-    getAllStudents() {
-        const result = this.studentService.getAllStudents();
-        const limit = 10;
-        const page = 1;
+    getAllStudents(@Query('page') page: string = '1', @Query('limit') limit: string = '10') {
+        let pageNumber = Number(page) || 1;
+        let limitNumber = Number(limit) || 10;
+
+        // Ensure page and limit are positive integers
+        pageNumber = Math.max(1, Math.floor(pageNumber));
+        limitNumber = Math.max(1, Math.floor(limitNumber));
+
+        // Industry standard: Set a reasonable maximum limit to prevent abuse
+        const maxLimit = 100;
+        if (limitNumber > maxLimit) {
+            limitNumber = maxLimit;
+        }
+
+        const { data, total } = this.studentService.getAllStudents(pageNumber, limitNumber);
+
         return {
             statusCode: HttpStatus.OK,
             message: 'Students fetched successfully',
-            data: result,
-             meta: {
-                page,
-                limit,
-                total: result.length,
-                totalPage: Math.ceil(result.length / limit),
+            data: data,
+            meta: {
+                page: pageNumber,
+                limit: limitNumber,
+                total: total,
+                totalPage: Math.ceil(total / limitNumber),
             },
         };
     }
