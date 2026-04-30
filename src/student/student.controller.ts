@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { StudentService } from './student.service';
+import { CreateStudentDto } from './dto/create-student.dto';
+import { UpdateStudentDto } from './dto/update-student.dto';
 
 @Controller('student')
 export class StudentController {
@@ -47,7 +49,7 @@ export class StudentController {
     }
 
     @Post()
-    create(@Body() body: {name: string; age: number; email: string}){
+    create(@Body() body: CreateStudentDto){
         const result = this.studentService.createStudent(body);
         return {
             statusCode: HttpStatus.CREATED,
@@ -57,7 +59,7 @@ export class StudentController {
     }
 
     @Put(':id')
-    update(@Param('id') id: string, @Body() body: {name: string; age:number; email: string}){
+    update(@Param('id') id: string, @Body() body: UpdateStudentDto){
         const result = this.studentService.updateStudent(Number(id), body);
         return {
             statusCode: HttpStatus.OK,
@@ -67,7 +69,7 @@ export class StudentController {
     }
 
     @Patch(':id')
-    patch(@Param('id') id: string, @Body() body: Partial<{name: string; age:number; email: string}>){
+    patch(@Param('id') id: string, @Body() body: UpdateStudentDto){
         const result = this.studentService.patchStudent(Number(id), body);
         return {
             statusCode: HttpStatus.OK,
