@@ -10,7 +10,7 @@ export class CustomerController {
 
     @Get()
     getCustomers(){
-        return this.customerService.getAllCustomers
+        return this.customerService.getAllCustomers();
     }
 
     @Post()
