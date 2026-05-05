@@ -3,11 +3,11 @@ import { IsEmail, IsNumber, IsString } from 'class-validator';
 /* eslint-disable prettier/prettier */
 export class CreateCustomerDto {
     @IsString()
-    name: string;
+    name!: string;
 
     @IsNumber()
-    age: number;
+    age!: number;
 
     @IsEmail()
-    email: string;
+    email!: string;
 }
