@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable prettier/prettier */
 import { Controller, Get } from '@nestjs/common';
 import { EvService } from './ev.service';
