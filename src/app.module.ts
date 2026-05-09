@@ -16,9 +16,10 @@ import { DatabaseController } from './database/database.controller';
 import { ConfigModule } from '@nestjs/config';
 import { EvService } from './ev/ev.service';
 import { EvController } from './ev/ev.controller';
+import { RelationModule } from './relation/relation.module';
 
 @Module({
-  imports: [EmployeeModule, CategoryModule, StudentModule, CustomerModule, ConfigModule.forRoot({ isGlobal: true })],
+  imports: [EmployeeModule, CategoryModule, StudentModule, CustomerModule, ConfigModule.forRoot({ isGlobal: true }), RelationModule],
   controllers: [AppController, UserController, ProductController, DatabaseController, EvController],
   providers: [AppService, UserService, ProductService, DatabaseService, EvService],
 })
