@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
@@ -24,3 +25,4 @@ export class RolesGuard implements CanActivate {
     return requiredRoles.includes(userRole);
   }
 }
+
